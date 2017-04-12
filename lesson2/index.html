@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <link href="app.css" rel="stylesheet" type="text/css" />
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button v-on:click="counter++">Increment</button>
+    <button v-on:click="counter--">Decrement</button>
+    <div>{{counterResult}}</div>
+    <div>{{counter}}</div>
+    <br />
+
+    <!-- v-bind is optional. v-on can be replaced with @ -->
+    <div class="block" @click="attach('red')" v-bind:class="[divSizeClass, {red : attached.red}]"></div>
+    <div class="block" @click="attach('blue')" :class="[divSizeClass, {blue : attached.blue}]"></div>
+    <div class="block" @click="attach('green')" :class="[divSizeClass, {green : attached.green}]"></div>
+
+    <input v-model="divSize" type="text" />
+
+    <hr />
+
+    <div class="progress" :style="currentProgress"></div>
+    <div>{{this.progress + '%'}}</div>
+
+    <!-- <button @click="large=!large">Large</button>
+    <button @click="medium=!medium">Medium</button> -->
+    <div v-if="this.progress > 75"><h3>Large sized text</h3></div>
+    <div v-else-if="this.progress > 45"><h4>Medium sized text</h4></div>
+    <div v-else><h5>Small sized text</h5></div>
+
+    <template v-for="(user,idx) in users">
+      <div>
+        <small>{{idx}}</small> <strong>{{user.id}}</strong> | <span>{{user.name}}</span>
+      </div>
+    </template>
+
+    <ul>
+      <li v-for="u in users">
+        <div v-for="(v,k, index) in u"><small>{{index}}</small>&nbsp; {{k}}: {{v}}</div>
+      </li>
+    </ul>
+
+    <div v-for="number in 10">
+      {{number*2}}
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>

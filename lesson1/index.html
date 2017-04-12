@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <link href="app.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- value will not be bound to the vue dom after initial render -->
+    <h2 v-once>{{title}}</h2>
+    <img v-bind:src="logo" height="40px" />
+    <div>Sanitized link: <span v-html="completeLink"></span></div>
+    <br />
+    <!--
+      basic text div whose content is bound to the value of an input field .
+      show alert when "Enter" is pressed
+    -->
+    <div>{{ url }}</div>
+    <input v-model="url" type="text" v-on:keyup.enter="alertMe"/>
+
+    <!-- a button which on click, calls the toggleColor method. Also contains two bind directives -->
+    <button v-bind:style="buttonStyle"
+        v-bind:class="buttonClass"
+        v-on:click.prevent="toggleColor($event, 'custom argument')"
+        v-on:mouseenter="buttonStats.enter++"
+        v-on:mouseleave="buttonStats.leave++">
+        Toggle Color
+    </button>
+
+    <div>button stats: {{buttonStats}}</div>
+    <div v-on:mousemove="updateCoordinates">
+      coordinates: {{x}} / {{y}}
+      <!-- stop propogation for mouse move event on this span -->
+      <span v-on:mousemove.stop>DEAD SPOT</span>
+    </div>
+
+    <!-- just display the data value of lastButtonClick -->
+    <small v-if="lastButtonClick">{{lastButtonClick}}</small>
+    <br />
+
+    <!--only show if url is a valid url -->
+    <a target="_blank" v-if="isValidLink" v-bind:href="url">{{ url }}</a>
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
