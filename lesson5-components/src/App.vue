@@ -6,21 +6,15 @@
 </template>
 <script>
 
-import Home from './Home.vue'
-import Footer from './Footer.vue';
+  import Home from './home/Home.vue'
+  import Footer from './shared/Footer.vue';
 
-export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  export default {
+    components : {
+      'home' : Home,
+      'app-footer' : Footer
     }
-  },
-  components : {
-    'home' : Home,
-    'app-footer' : Footer
   }
-}
 </script>
 
 <style>

@@ -9,7 +9,7 @@
 
 <script>
 
-  import ServerStatus from './ServerStatus.vue';
+  import ServerStatus from '../servers/ServerStatus.vue';
 
   export default{
     components : {
