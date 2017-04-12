@@ -1,0 +1,15 @@
+In the last lecture I introduced one possible folder structure. It's a great structure in small and medium sized projects.
+
+Whilst it also might work fine in bigger projects, there's also an alternative you might want to consider.
+
+Instead of having your components in a components/ folder (and storing other shared files in other folders - e.g. shared/), you can also group your files by feature.
+
+This could look like this:
+
+- main.js
+- users/
+- - account/
+- - analytics/
+- shop
+- - main/
+- - checkout/

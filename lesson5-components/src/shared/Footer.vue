@@ -6,4 +6,12 @@
 </template>
 
 <script>
+
 </script>
+
+<style scoped>
+  p{
+    font-weight: bold;
+    font-size: 16px;
+  }
+</style>
