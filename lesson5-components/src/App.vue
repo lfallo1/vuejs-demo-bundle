@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <home></home>
+    <app-home></app-home>
     <app-footer></app-footer>
   </div>
 </template>
@@ -11,7 +11,7 @@
 
   export default {
     components : {
-      'home' : Home,
+      'app-home' : Home,
       'app-footer' : Footer
     }
   }

@@ -16,4 +16,5 @@
       'app-server-status' : ServerStatus
     }
   }
+  
 </script>
