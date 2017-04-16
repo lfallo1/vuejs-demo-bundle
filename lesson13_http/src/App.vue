@@ -1,18 +1,18 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+            <div class="col-xs-12">
 
                 <!-- Create search component -->
                 <input class="form-control" type="text" v-model="searchText" v-on:keyup.enter="search" />
                 <button @click.prevent="search" class="btn btn-primary">Search</button>
 
                 <div v-if="artist.id">
-                  <Artist :artist="artist" />
+                  <spotify-artist :artist="artist" />
                   <div id="track-list-wrapper">
                     <ul class="list-group">
-                      <li v-for="track in tracks">
-                        <TrackItem :track="track" />
+                      <li class="list-group-item" v-for="track in tracks">
+                        <spotify-track :track="track" />
                       </li>
                     </ul>
                   </div>
@@ -25,21 +25,19 @@
 
 <script>
     import SpotifyApi from './spotify/SpotifyService.js';
-    import TrackItem from './track/Track.vue';
+    import Track from './track/Track.vue';
     import Artist from './artist/Artist.vue';
 
     export default {
 
       components: {
-        Artist,
-        TrackItem
+        'spotify-artist': Artist,
+        'spotify-track': Track
       },
 
       data(){
         return {
           searchText : '',
-          searchMode : '',
-          searchModes : ['Artist', 'Playlist', 'Song'],
           artist : {},
           tracks : []
         }
@@ -47,21 +45,14 @@
 
       methods: {
         search : function(){
-          if(this.searchMode === 'Artist'){
-            this.searchArtist()
-          }
-        },
-        searchArtist: function(){
           const self = this;
-          SpotifyApi.searchArtist(this.searchText).then(function(data){
-            self.artist = data.artist;
-            self.tracks = data.tracks;
-          }, err=>console.log(err))
+          SpotifyApi.searchArtist(this.searchText).then( data=> {
+            self.artist = data.artists.items[0];
+            SpotifyApi.topTracksByArtistId(self.artist.id).then( data=> {
+              self.tracks = data.tracks;
+            }, err=>console.log('Error fetching tracks: ', err))
+          }, err=>console.log('Error fetching artists: ', err))
         }
-      },
-
-      created(){
-        this.searchMode = this.searchModes[0];
       }
     }
 </script>

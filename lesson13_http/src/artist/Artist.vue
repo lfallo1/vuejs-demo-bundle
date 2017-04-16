@@ -1,5 +1,5 @@
 <template>
-    <div class="container artist-wrapper">
+    <div class="container artist-wrapper well well-sm">
       <img :src="artist.images[0].url" width="240px" />
       <div class="artist-name">{{artist.name}}</div>
       <div class="artist-genres">{{artist.genres.toString()}}</div>

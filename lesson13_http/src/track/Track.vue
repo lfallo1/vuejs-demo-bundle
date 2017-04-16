@@ -1,14 +1,13 @@
 <template>
   <div class="track-wrapper">
-    <h3>{{track.preview_url}}</h3>
-    <div class="thumbnail"
+    <div class="text-center"
         @mouseenter="start"
         @mouseleave="stop">
         <img :src="track.album.images[0].url" width="240px" />
+        <div class="track-name">{{track.name}}</div>
+        <div class="track-duration">{{track.duration_ms}}</div>
+        <div class="track-popularity">{{track.popularity}}</div>
     </div>
-    <div class="track-name">{{track.name}}</div>
-    <div class="track-duration">{{track.duration_ms}}</div>
-    <div class="track-popularity">{{track.popularity}}</div>
     <audio ref="audioPlayer">
        <source :src="track.preview_url" />
     </audio>

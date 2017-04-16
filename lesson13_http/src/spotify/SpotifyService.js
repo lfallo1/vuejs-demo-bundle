@@ -5,17 +5,20 @@ const SPOTIFY_SEARCH_ARTIST = 'search?type=artist&limit=1';
 
 export default{
 
+  topTracksByArtistId : function(id){
+    return Vue.http.get(`${SPOTIFY_BASE}artists/${id}/top-tracks?country=US`).then(res => {
+      return res.json();
+    }, err=>{
+      throw err.json()
+    })
+  },
+
   searchArtist : function(searchText){
-    return new Promise((resolve,reject)=>{
-      Vue.http.get(`${SPOTIFY_BASE}${SPOTIFY_SEARCH_ARTIST}&q=${encodeURI(searchText)}`).then(res=>{
-        if(res.body.artists.items.length > 0){
-          const artist = res.body.artists.items[0];
-          Vue.http.get(`${SPOTIFY_BASE}artists/${artist.id}/top-tracks?country=US`).then(res => {
-            resolve({artist: artist, tracks: res.body.tracks});
-          }, err=>{ reject(err) })
-        }
-      }, err =>{ reject(err) })
-    });
+      return Vue.http.get(`${SPOTIFY_BASE}${SPOTIFY_SEARCH_ARTIST}&q=${encodeURI(searchText)}`).then(res=>{
+        return res.json();
+      }, err =>{
+        throw err.json()
+      })
   }
 
 }
