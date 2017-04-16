@@ -5,8 +5,11 @@
         @mouseleave="stop">
         <img :src="track.album.images[0].url" width="240px" />
         <div class="track-name">{{track.name}}</div>
-        <div class="track-duration">{{track.duration_ms}}</div>
-        <div class="track-popularity">{{track.popularity}}</div>
+        <div class="track-duration">{{formattedMilliseconds}}</div>
+        <div class="track-popularity">
+          ({{track.popularity}})
+          <span class="glyphicon glyphicon-star" v-for="num in popularity"></span>
+        </div>
     </div>
     <audio ref="audioPlayer">
        <source :src="track.preview_url" />
@@ -28,6 +31,16 @@
         stop(){
           this.$refs.audioPlayer.pause();
           this.$refs.audioPlayer.currentTime = 0;
+        }
+      },
+      computed: {
+        formattedMilliseconds(){
+          const minutes = Math.floor(this.track.duration_ms / 1000 / 60);
+          const seconds = Math.round((this.track.duration_ms / 1000) % 60);
+          return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        },
+        popularity(){
+          return Math.ceil(this.track.popularity / 20);
         }
       }
     }
